@@ -5,13 +5,14 @@ on:
     branches: [main]
 
 jobs:
+
   publish-image:
     runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -34,6 +35,17 @@ jobs:
             ghcr.io/korawica/dfa-fastapi:latest
           docker ps -a
 
+  test-image:
+    needs: [publish-image]
+    runs-on: ubuntu-latest
+    container: ubuntu
+    services:
+      dfa-fastapi:
+        image: ghcr.io/korawica/dfa-fastapi:latest
+        ports:
+          - 8000:8000
+
+    steps:
       - name: Test Request to Application
         run: |
-          curl http://127.0.0.1:8000/health/
+          curl dfa-fastapi:8000/health/

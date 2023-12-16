@@ -23,6 +23,8 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./app /code/app
 COPY ./main.py /code/main.py
 
+EXPOSE 8000
+
 # Because the program will be started at /code and inside of it is the
 # directory ./app with your code, Uvicorn will be able to see and import app
 # from app.main.
