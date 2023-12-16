@@ -36,4 +36,4 @@ jobs:
 
       - name: Test Request to Application
         run: |
-          curl http://localhost:8000/health/
+          curl http://127.0.0.1:8000/health/
