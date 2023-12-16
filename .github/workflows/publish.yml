@@ -47,7 +47,9 @@ jobs:
           - 8000:8000
 
     steps:
+      - run: apt-get update; apt-get install curl -y
+
       - name: Test Request to Application
         run: |
-          docker ps -a
-          curl http://127.0.0.1:8000/health/
+          curl dfa-fastapi:8000/health/ > curl_result
+          cat curl_result
