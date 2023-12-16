@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from asgi_lifespan import LifespanManager
 from httpx import AsyncClient
 from collections.abc import AsyncGenerator
-from app.config import settings
+from app.config.settings import settings
 
 
 @pytest.fixture(scope="session")
