@@ -28,5 +28,8 @@ jobs:
       - name: Test
         run: |
           docker pull ghcr.io/korawica/dfa-fastapi:latest
-          docker run -d ghcr.io/korawica/dfa-fastapi:latest
+          docker run -d \
+            --name dfa-fastapi-local \
+            -p 8000:8000 \
+            ghcr.io/korawica/dfa-fastapi:latest
           curl http://localhost:8000/health/
