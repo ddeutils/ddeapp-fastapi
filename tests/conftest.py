@@ -5,7 +5,7 @@ import pytest_asyncio
 from fastapi import FastAPI
 from asgi_lifespan import LifespanManager
 from httpx import AsyncClient
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 from app.config import settings
 
 
@@ -29,6 +29,6 @@ async def client(app: FastAPI) -> AsyncGenerator:
         async with AsyncClient(
             app=app,
             base_url=f"{settings.BASE_URL}:8080",
-            headers={"Content-Type": "application/json"}
+            headers={"Content-Type": "application/json"},
         ) as _client:
             yield _client

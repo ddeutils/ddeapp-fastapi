@@ -38,7 +38,7 @@ is Window server 2016. The solution that we found to run this application is,
   ```
 
   > **Note**: \
-  > Make sure for no caching any packages in pip by this command, 
+  > Make sure for no caching any packages in pip by this command,
   > ```shell
   > (venv) $ pip cache purge
   > ```
@@ -107,9 +107,9 @@ is Window server 2016. The solution that we found to run this application is,
   $ pip install pywin32 --upgrade --no-cache
   $ pip install -r requirements.wins.txt --no-cache
   ```
-  
+
 - Compile your service.py using pyinstaller
- 
+
   ```shell
   $ pyinstaller --paths "%cd%\venv\Lib\site-packages" \
     --onefile service.py \
@@ -117,23 +117,23 @@ is Window server 2016. The solution that we found to run this application is,
     --clean --uac-admin \
     --add-data '.env;.'
   ```
-  
+
   > **Warning**: \
   > In argument `--add-data` on unix systems, you should write `:` instead of `;`
 
   > **Note**: \
   > After install `service.py`, it will create `/dist` and `/build` folders
-  
+
   > **Note**: \
-  > `--paths`: The pyinstaller will search for imports here \ 
+  > `--paths`: The pyinstaller will search for imports here \
   > `--hidden-import`: Which modules should be imported by pyinstaller from the path
-  
+
 - Installing service with startup == Automatic
-  
+
   ```shell
   $ .\dist\service.exe --startup=auto install
   ```
-  
+
   ```shell
   $ service.exe start
   $ service.exe stop
@@ -145,29 +145,29 @@ is Window server 2016. The solution that we found to run this application is,
   > If you want to set the `StartUp= Manual`, then don't use `--startup=auto`, while installing service \
   > If you want to set the `StartUp= Automatic`, then use `--startup=delayed`, while installing service \
   > Use `--startup` argument before install argument
-  
+
   > **Warning**: \
   > This option has the Bug of `Error 1053: The service did not respond timely`
   > when start the service while debugging did not raise any error
-  
-  
+
+
 - (Optional) Add file .exe file to Windows Service directly
 
   ```shell
   $ sc.exe create "FastAPIServiceName" binPath= "%cd%\dist\service.exe" \
     DisplayName= "FastAPI Service DisplayName" start= auto
   ```
-  
+
   ```shell
   $ sc.exe create "FastAPIServiceName" binPath= "%cd%\venv\Scripts\python.exe %cd%\service.py" \
     DisplayName= "FastAPI Service DisplayName" start= auto
   ```
-  
+
   ```shell
-  $ sc.exe start 
+  $ sc.exe start
   $ sc.exe delete demo_application
   ```
-  
+
 - Now your python service is installed as Windows service now. You can see it in Service Manager and registry under:
 
   `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FastAPIServiceName`
@@ -181,7 +181,7 @@ is Window server 2016. The solution that we found to run this application is,
 ### With Window service wrapped by NSSM
 
 - Downloads and unzip NSSM package to server from [NSSM Download](https://nssm.cc/release/nssm-2.24.zip)
-  
+
   ```text
   nssm-{version}
     ├─── src
@@ -215,7 +215,7 @@ is Window server 2016. The solution that we found to run this application is,
   ```shell
   $ sc.exe start "FastAPIService"
   ```
-  
+
 - (Optional) NSSM command line
 
   ```shell
@@ -253,8 +253,8 @@ $ Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 ```
 
 ```shell
-$ Install-Module DockerProvider 
-$ Install-Package Docker -ProviderName DockerProvider -RequiredVersion preview 
+$ Install-Module DockerProvider
+$ Install-Package Docker -ProviderName DockerProvider -RequiredVersion preview
 ```
 
 Reboot your machine manual once again.
@@ -267,7 +267,7 @@ $ Set-Content -Value "`{`"experimental`":true`}" -Path C:\ProgramData\docker\con
 
 ```shell
 $ [Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
-$ Restart-Service docker 
+$ Restart-Service docker
 ```
 
 ### With Window task scheduler

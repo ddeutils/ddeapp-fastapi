@@ -6,7 +6,10 @@ from httpx import AsyncClient, Response
 from app.config.settings import settings
 
 DEMO_DATA_KEYS = {
-    'id', 'type', 'create_date', 'value',
+    "id",
+    "type",
+    "create_date",
+    "value",
 }
 
 
@@ -31,17 +34,15 @@ async def test_route_demo_data_limit(client: AsyncClient):
 
 
 @patch(
-    target='app.tasks.httpx.AsyncClient.get',
+    target="app.tasks.httpx.AsyncClient.get",
     return_value=Response(
         status_code=200,
-        json={'message': 'Hello World'},
+        json={"message": "Hello World"},
     ),
 )
 def test_route_demo_task(mocker: AsyncMock, app: FastAPI):
     app_client = TestClient(app)
-    response = app_client.get(
-        f"http://127.0.0.1:8080{settings.API_V1_STR}/demo/task/"
-    )
+    response = app_client.get(f"http://127.0.0.1:8080{settings.API_V1_STR}/demo/task/")
     assert mocker.called
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) == 10
@@ -49,10 +50,10 @@ def test_route_demo_task(mocker: AsyncMock, app: FastAPI):
 
 
 @patch(
-    target='app.tasks.httpx.AsyncClient.get',
+    target="app.tasks.httpx.AsyncClient.get",
     return_value=Response(
         status_code=200,
-        json=[{'message': 'Hello World'}],
+        json=[{"message": "Hello World"}],
     ),
 )
 def test_route_demo_job_deps_raise(mocker: AsyncMock, app: FastAPI):
@@ -63,6 +64,5 @@ def test_route_demo_job_deps_raise(mocker: AsyncMock, app: FastAPI):
     assert not mocker.called
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     assert response.json() == {
-        'detail': 'Json decoder error from parsing data to ADFObject.'
+        "detail": "Json decoder error from parsing data to ADFObject."
     }
-

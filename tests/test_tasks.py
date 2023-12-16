@@ -27,10 +27,10 @@ async def test_tasks_delete_files_and_empty_folders():
     (test_path / "test_file.txt").write_text("test")
 
     rs = await delete_files_and_empty_folders("tasks")
-    assert rs == {'files': 0, 'folders': 0}
+    assert rs == {"files": 0, "folders": 0}
 
     rs = await delete_files_and_empty_folders()
-    assert rs == {'files': 0, 'folders': 1}
+    assert rs == {"files": 0, "folders": 1}
 
     (test_path / "test_file.txt").unlink(missing_ok=True)
     test_path.rmdir()
@@ -39,24 +39,24 @@ async def test_tasks_delete_files_and_empty_folders():
 
 @pytest.mark.asyncio
 async def test_tasks_response_json(client: AsyncClient):
-    rs = await response_json(client, 'http://127.0.0.1:8080/health/')
-    assert rs == {'message': 'Hello World'}
+    rs = await response_json(client, "http://127.0.0.1:8080/health/")
+    assert rs == {"message": "Hello World"}
 
 
 @pytest.mark.asyncio
 @patch(
-    target='app.tasks.httpx.AsyncClient.get',
+    target="app.tasks.httpx.AsyncClient.get",
     return_value=Response(
         status_code=200,
-        json={'message': 'Hello World'},
+        json={"message": "Hello World"},
     ),
 )
 async def test_tasks_task(client: AsyncClient):
     rs = await task(
-        'http://127.0.0.1:8080/health/',
+        "http://127.0.0.1:8080/health/",
         parallel_number=2,
     )
-    assert rs == [{'message': 'Hello World'}, {'message': 'Hello World'}]
+    assert rs == [{"message": "Hello World"}, {"message": "Hello World"}]
 
 
 @pytest.mark.asyncio
@@ -71,17 +71,13 @@ async def test_common_save():
     )
     data_path: Path = Path(settings.BASE_PATH) / "data" / "tests_common"
     assert (data_path / "test_common.0.json").exists()
-    assert (
-            json.loads(
-                (data_path / "test_common.0.json").read_text(encoding="utf-8")
-            ) == [{"id": 1, "content": "foo"}]
-    )
+    assert json.loads(
+        (data_path / "test_common.0.json").read_text(encoding="utf-8")
+    ) == [{"id": 1, "content": "foo"}]
     assert (data_path / "test_common.1.json").exists()
-    assert (
-            json.loads(
-                (data_path / "test_common.1.json").read_text(encoding="utf-8")
-            ) == [{"id": 2, "content": "bar"}]
-    )
+    assert json.loads(
+        (data_path / "test_common.1.json").read_text(encoding="utf-8")
+    ) == [{"id": 2, "content": "bar"}]
 
     for f in data_path.glob("*"):
         f.unlink()
@@ -101,11 +97,10 @@ async def test_merge_save():
     )
     data_path: Path = Path(settings.BASE_PATH) / "data" / "tests_merge"
     assert (data_path / "test_merge.json").exists()
-    assert (
-            json.loads(
-                (data_path / "test_merge.json").read_text(encoding="utf-8")
-            ) == [{"id": 1, "content": "foo"}, {"id": 2, "content": "bar"}]
-    )
+    assert json.loads((data_path / "test_merge.json").read_text(encoding="utf-8")) == [
+        {"id": 1, "content": "foo"},
+        {"id": 2, "content": "bar"},
+    ]
 
     for f in data_path.glob("*"):
         f.unlink()

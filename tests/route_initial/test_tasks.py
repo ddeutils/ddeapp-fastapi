@@ -11,8 +11,10 @@ async def test_generate_data():
 
 @pytest.mark.asyncio
 async def test_generate_data_with_constant():
-    data = await tasks.generate_data({
-        "add": "foo",
-    })
+    data = await tasks.generate_data(
+        {
+            "add": "foo",
+        }
+    )
     assert len(data) == 5
     assert set(data.keys()) == {"id", "type", "create_date", "value", "add"}
