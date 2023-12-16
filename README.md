@@ -1,13 +1,13 @@
 # Data Framework Application: *FastAPI*
 
-**Type**: `DFA` |
-**Tag**: `Data Framework` `Web Application` `Python` `FastAPI` `Docker`
-
 Data Framework API App use that routing with FastAPI
 
+**Table of Contents**:
+
+* [Deployment](#deployment)
+* [Testing](#testing)
 
 ## Deployment
-
 
 This application require run on local intra network (on premise) server. The OS
 is Window server 2016. The solution that we found to run this application is,
