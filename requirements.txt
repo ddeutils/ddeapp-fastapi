@@ -11,3 +11,6 @@ asgi-lifespan==2.*
 
 # Test
 pytest==7.2.2
+
+# Develop
+pre-commit==3.6.0
