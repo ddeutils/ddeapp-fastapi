@@ -39,6 +39,7 @@ jobs:
     needs: [publish-image]
     runs-on: ubuntu-latest
     container: ubuntu
+
     services:
       dfa-fastapi:
         image: ghcr.io/korawica/dfa-fastapi:latest
@@ -48,4 +49,5 @@ jobs:
     steps:
       - name: Test Request to Application
         run: |
-          curl dfa-fastapi:8000/health/
+          docker ps -a
+          curl http://127.0.0.1:8000/health/
