@@ -25,11 +25,15 @@ jobs:
           docker build . --tag ghcr.io/korawica/dfa-fastapi:latest
           docker push ghcr.io/korawica/dfa-fastapi:latest
 
-      - name: Test
+      - name: Test Running the dfa-fastapi Docker image
         run: |
           docker pull ghcr.io/korawica/dfa-fastapi:latest
           docker run -d \
             --name dfa-fastapi-local \
             -p 8000:8000 \
             ghcr.io/korawica/dfa-fastapi:latest
+          docker ps -a
+
+      - name: Test Request to Application
+        run: |
           curl http://localhost:8000/health/
