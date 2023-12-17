@@ -2,11 +2,12 @@ name: publish
 
 on:
   push:
-    branches: [main]
+    tags:
+      - 'v*.*.*'
 
 jobs:
 
-  publish-image:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -35,8 +36,8 @@ jobs:
             ghcr.io/korawica/dfa-fastapi:latest
           docker ps -a
 
-  test-image:
-    needs: [publish-image]
+  test:
+    needs: [publish]
     runs-on: ubuntu-latest
     container: ubuntu
 
@@ -47,7 +48,10 @@ jobs:
           - 8000:8000
 
     steps:
-      - run: apt-get update; apt-get install curl -y
+      - name: Install Curl for Request Application
+        run: |
+          apt-get update
+          apt-get install curl -y
 
       - name: Test Request to Application
         run: |
