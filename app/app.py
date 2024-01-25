@@ -1,4 +1,9 @@
-from fastapi import FastAPI, Request, Depends, status
+from fastapi import (
+    FastAPI,
+    Request,
+    Depends,
+    status,
+)
 from fastapi.responses import JSONResponse
 from app.config.settings import settings
 import httpx
@@ -37,8 +42,21 @@ def create_app() -> FastAPI:
     from app.tasks import delete_files_and_empty_folders
     from app.dependencies import parameters
     from app.models import ADFObject
+    from app.security import get_api_key
 
-    @app.delete("/delete/data-files/", response_class=JSONResponse)
+    @app.get(
+        "/protected",
+        response_class=JSONResponse,
+        dependencies=[Depends(get_api_key)],
+    )
+    async def protected():
+        return JSONResponse({"message": "Access granted!"})
+
+    @app.delete(
+        "/delete/data-files/",
+        response_class=JSONResponse,
+        dependencies=[Depends(get_api_key)],
+    )
     async def delete_files():
         """Delete files which have creation datetime less than configuration
         datetime
@@ -56,6 +74,7 @@ def create_app() -> FastAPI:
     @app.post(
         f"{settings.API_V1_STR}/common-temp/",
         response_class=JSONResponse,
+        dependencies=[Depends(get_api_key)],
     )
     async def common_temp(
         request: Request,
@@ -64,6 +83,7 @@ def create_app() -> FastAPI:
         await delete_files()
 
         print(params)
+        print(request)
 
         await delete_files()
 
@@ -77,6 +97,7 @@ def create_app() -> FastAPI:
     @app.post(
         f"{settings.API_V1_STR}/common/",
         response_class=JSONResponse,
+        dependencies=[Depends(get_api_key)],
     )
     async def common(
         request: Request,
