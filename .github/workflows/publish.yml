@@ -6,12 +6,10 @@ on:
       - 'v*.*.*'
 
 jobs:
-
-  publish:
+  publish-image:
     runs-on: ubuntu-latest
     permissions:
       packages: write
-
     steps:
       - uses: actions/checkout@v4
 
@@ -24,29 +22,27 @@ jobs:
 
       - name: Build the dfa-fastapi Docker image
         run: |
-          docker build . --tag ghcr.io/korawica/dfa-fastapi:latest
-          docker push ghcr.io/korawica/dfa-fastapi:latest
+          docker build . --tag ghcr.io/ddeutils/dfa-fastapi:latest
+          docker push ghcr.io/ddeutils/dfa-fastapi:latest
 
       - name: Test Running the dfa-fastapi Docker image
         run: |
-          docker pull ghcr.io/korawica/dfa-fastapi:latest
+          docker pull ghcr.io/ddeutils/dfa-fastapi:latest
           docker run -d \
             --name dfa-fastapi-local \
             -p 8000:8000 \
-            ghcr.io/korawica/dfa-fastapi:latest
+            ghcr.io/ddeutils/dfa-fastapi:latest
           docker ps -a
 
-  test:
+  test-image:
     needs: [publish]
     runs-on: ubuntu-latest
     container: ubuntu
-
     services:
       dfa-fastapi:
-        image: ghcr.io/korawica/dfa-fastapi:latest
+        image: ghcr.io/ddeutils/dfa-fastapi:latest
         ports:
           - 8000:8000
-
     steps:
       - name: Install Curl for Request Application
         run: |

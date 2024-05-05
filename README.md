@@ -1,6 +1,6 @@
 # Data Framework Application: *FastAPI*
 
-Data Framework API App use that routing with FastAPI
+Data Framework API Application that routing with FastAPI.
 
 **Table of Contents**:
 
@@ -37,7 +37,7 @@ is Window server 2016. The solution that we found to run this application is,
   (venv) $ ren .{demo}.env .env
   ```
 
-  > **Note**: \
+  > [!NOTE]
   > Make sure for no caching any packages in pip by this command,
   > ```shell
   > (venv) $ pip cache purge
@@ -86,7 +86,7 @@ is Window server 2016. The solution that we found to run this application is,
   $ sudo docker run -d --env-file ./.env --name dedp-fastapi -p 8000:8000 dedp-fastapi
   ```
 
-  > **Note**:\
+  > [!NOTE]
   > If you want to clear any storage in Docker,
   >
   > ```shell
@@ -118,13 +118,13 @@ is Window server 2016. The solution that we found to run this application is,
     --add-data '.env;.'
   ```
 
-  > **Warning**: \
+  > [!WARNING]
   > In argument `--add-data` on unix systems, you should write `:` instead of `;`
 
-  > **Note**: \
+  > [!NOTE]
   > After install `service.py`, it will create `/dist` and `/build` folders
 
-  > **Note**: \
+  > [!NOTE]
   > `--paths`: The pyinstaller will search for imports here \
   > `--hidden-import`: Which modules should be imported by pyinstaller from the path
 
@@ -141,12 +141,12 @@ is Window server 2016. The solution that we found to run this application is,
   $ service.exe remove
   ```
 
-  > **Note**: \
+  > [!NOTE]
   > If you want to set the `StartUp= Manual`, then don't use `--startup=auto`, while installing service \
   > If you want to set the `StartUp= Automatic`, then use `--startup=delayed`, while installing service \
   > Use `--startup` argument before install argument
 
-  > **Warning**: \
+  > [!WARNING]
   > This option has the Bug of `Error 1053: The service did not respond timely`
   > when start the service while debugging did not raise any error
 
@@ -172,7 +172,7 @@ is Window server 2016. The solution that we found to run this application is,
 
   `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FastAPIServiceName`
 
-> **Note**: \
+> [!NOTE]
 > Another way to install Windows service, `pip install pysc`
 
 > **Reference**: \
