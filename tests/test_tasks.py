@@ -16,7 +16,7 @@ from app.config.settings import settings
 @pytest.mark.asyncio
 async def test_tasks_delete_files_and_empty_folders():
     data_path = Path(settings.BASE_PATH) / "data" / "tests"
-    data_path.mkdir(exist_ok=True)
+    data_path.mkdir(parents=True, exist_ok=True)
 
     test_path = data_path / "tasks"
     test_path.mkdir(exist_ok=True)
