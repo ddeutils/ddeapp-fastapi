@@ -29,6 +29,9 @@ async def client(app: FastAPI) -> AsyncGenerator:
         async with AsyncClient(
             app=app,
             base_url=f"{settings.BASE_URL}:8080",
-            headers={"Content-Type": "application/json"},
+            headers={
+                "Content-Type": "application/json",
+                "X-Access-Key": "test",
+            },
         ) as _client:
             yield _client

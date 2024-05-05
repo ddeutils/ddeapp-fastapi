@@ -39,3 +39,8 @@ repos:
         args: ["--unsafe"]
     -   id: check-toml
         stages: [commit]
+
+-   repo: https://github.com/korawica/clishelf
+    rev: v0.2.4
+    hooks:
+    -   id: shelf-commit-msg

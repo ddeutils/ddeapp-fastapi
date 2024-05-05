@@ -52,6 +52,7 @@ async def test_common_async_fail(app: FastAPI, client: AsyncClient):
             "P_LD_ID": "999",
         },
     )
+    print(response.json())
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     assert response.json() == {
         "detail": "Process object does not valid with model.",
