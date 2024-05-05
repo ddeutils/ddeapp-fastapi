@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: gh-image
-      url: https://github.com/orgs/ddeutils/packages/dfa-fastapi
+      url: https://github.com/ddeutils/ddeapp-fastapi/pkgs/container/dfa-fastapi
     permissions:
       packages: write
     steps:
