@@ -8,6 +8,9 @@ on:
 jobs:
   publish-image:
     runs-on: ubuntu-latest
+    environment:
+      name: gh-image
+      url: https://github.com/orgs/ddeutils/packages/dfa-fastapi
     permissions:
       packages: write
     steps:
@@ -22,16 +25,16 @@ jobs:
 
       - name: Build the dfa-fastapi Docker image
         run: |
-          docker build . --tag ghcr.io/ddeutils/dfa-fastapi:latest
-          docker push ghcr.io/ddeutils/dfa-fastapi:latest
+          docker build . --tag ${{ vars.GH_REPO_URL }}:latest
+          docker push ${{ vars.GH_REPO_URL }}:latest
 
       - name: Test Running the dfa-fastapi Docker image
         run: |
-          docker pull ghcr.io/ddeutils/dfa-fastapi:latest
+          docker pull ${{ vars.GH_REPO_URL }}:latest
           docker run -d \
             --name dfa-fastapi-local \
             -p 8000:8000 \
-            ghcr.io/ddeutils/dfa-fastapi:latest
+            ${{ vars.GH_REPO_URL }}:latest
           docker ps -a
 
   test-image:
@@ -40,6 +43,7 @@ jobs:
     container: ubuntu
     services:
       dfa-fastapi:
+        # ghcr.io/ddeutils/dfa-fastapi
         image: ghcr.io/ddeutils/dfa-fastapi:latest
         ports:
           - 8000:8000
