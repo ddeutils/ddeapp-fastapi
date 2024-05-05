@@ -38,7 +38,8 @@ jobs:
           docker ps -a
 
   test-image:
-    needs: [publish]
+    needs:
+      - publish-image
     runs-on: ubuntu-latest
     container: ubuntu
     services:
