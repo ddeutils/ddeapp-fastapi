@@ -79,6 +79,12 @@ is Window server 2016. The solution that we found to run this application is,
   $ sudo docker image ls
   ```
 
+  Or, use multistage image building:
+
+  ```shell
+  $ sudo docker build -t dedp-fastapi -f multistage.Dockerfile . --no-cache
+  ```
+
 - Run a container based on your image:
 
   ```shell
@@ -94,6 +100,10 @@ is Window server 2016. The solution that we found to run this application is,
   > ```
 
 - Check this container running in background
+
+  ```shell
+  $ curl http://127.0.0.1:8000/api/v1/docs
+  ```
 
   ```shell
   $ sudo docker ps
